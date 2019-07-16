@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
     <div id="navbarNavDropdown" class="navbar-collapse collapse">
         <div class="navbar-nav mr-auto">
-            <a class="navbar-brand" href="{% url 'chatroom:home_page' %}">Django Chat</a>
+            <a class="navbar-brand" href="{% url 'home-page' %}">Django Chat</a>
         </div>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-                <li><a class="nav-link" href="{% url 'chatroom:profile' %}">Profile</a></li>
-                <li><a class="nav-link" href="{% url 'chatroom:logout' %}">Logout</a></li>
+                <li><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                <li><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-                <li><a class="nav-link" href="{% url 'chatroom:login' %}">Login</a></li>
-                <li><a class="nav-link" href="{% url 'chatroom:register' %}">Signup</a></li>
+                <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                <li><a class="nav-link" href="{% url 'register' %}">Signup</a></li>
             {% endif %}
         </ul>
     </div>
