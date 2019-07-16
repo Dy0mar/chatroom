@@ -1,0 +1,6 @@
+/.idea/*
+/venv/*
+*.pyc
+*.sqlite3
+blogify/local_settings.py
+celerybeat-schedule
