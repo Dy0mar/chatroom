@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'inc/form_errors.html' %}
+        </div>
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</p>
+            {% else %}
+                <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 offset-4">
+            {% url 'login' as login_url %}
+            {% include 'inc/form.html' with form=form action=login_url %}
+        </div>
+    </div>
+
+{% endblock %}
+
