@@ -23,13 +23,15 @@ class IndexView(TemplateView):
         queryset = ChatMessage.objects.order_by("-created")[:10]
         count_messages = len(queryset)
 
+        previous_message_id = -1
         if count_messages > 0:
-            current_message_id = queryset[count_messages - 1].id
-            previous_message_id = ChatMessage.objects.filter(
-                pk__lt=current_message_id
-            ).order_by("-pk").first().id
-        else:
-            previous_message_id = -1
+            last_message_id = queryset[count_messages - 1].id
+            previous_message = ChatMessage.objects.filter(
+                pk__lt=last_message_id
+            ).order_by("-pk").first()
+
+            if previous_message:
+                previous_message_id = previous_message.id
 
         context['chat_messages'] = reversed(queryset)
         context['previous_message_id'] = previous_message_id
