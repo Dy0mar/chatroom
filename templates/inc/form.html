@@ -1,13 +1,13 @@
-<form role="form" class="form-horizontal" method="post" action="{{ action }}">{% csrf_token %}
-    <div class="form-group">
-        {% for field in form %}
-            <div class="input-group mt-1">
-                <span class="input-group-addon" style="background-color:#b77b48; color:white"><span class="glyphicon glyphicon-user"></span></span>
-                <input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" value="{{ field.value|default_if_none:"" }}" type="{% if field.html_name|slice:8 == 'password' %}password{% else %}text{% endif %}" placeholder="{{ field.html_name }}" />
-            </div>
-        {% endfor %}
+{% load widget_tweaks %}
 
-        <input type="submit" class="btn btn-primary mt-2" value="Send" />
-        <input type="hidden" name="next" value="{{ next }}" />
-    </div>
+<form method="post" class="form" action="{{ action }}">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.html_name|title }}</label>
+            {{ field |add_class:"form-control" }}
+        </div>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Send</button>
+    <input type="hidden" name="next" value="{{ next }}" />
 </form>
