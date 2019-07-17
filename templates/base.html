@@ -16,9 +16,10 @@
 	</title>
 </head>
 <body>
-{% block menu %}
-	{% include 'inc/menu.html' with current_page=current_page %}
-{% endblock %}
+{% block menu %} {% include 'inc/menu.html' with current_page=current_page %} {% endblock %}
+
+{% block messages %} {% include 'inc/messages.html' %} {% endblock %}
+
 <div class="container bg-light mt-5 p-4">
 	{% block content %}{% endblock %}
 </div>
