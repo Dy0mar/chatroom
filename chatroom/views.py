@@ -33,7 +33,7 @@ class IndexView(TemplateView):
             if previous_message:
                 previous_message_id = previous_message.id
 
-        context['chat_messages'] = reversed(queryset)
+        context['chat_messages'] = reversed(queryset.select_related('user'))
         context['previous_message_id'] = previous_message_id
         return context
 
