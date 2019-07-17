@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'channels',
+    'channels_presence',
 ]
 
 MIDDLEWARE = [
@@ -135,4 +137,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            'hosts': [('localhost', 6379)],
+        },
+        "ROUTING": "chatroom.routing.channel_routing",
+    },
 }
