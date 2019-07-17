@@ -16,7 +16,8 @@ class RegistrationForm(UserCreationForm):
         qs = User.objects.filter(email=email).exclude(username=username)
 
         if email and qs.exists():
-            raise forms.ValidationError(u'Email addresses must be unique.')
+            raise forms.ValidationError(u'Email address already exists.')
+
         return email
 
     def __init__(self, *args, **kwargs):
@@ -27,3 +28,20 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2', )
+
+
+class UserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email', )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        username = self.instance.username
+        qs = User.objects.filter(email=email).exclude(username=username)
+
+        if email and email != self.instance.email and qs.exists():
+            raise forms.ValidationError(u'Email address already exists.')
+
+        return email
