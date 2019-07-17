@@ -11,11 +11,29 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 
+from chatroom.models import ChatMessage
 from .forms import RegistrationForm, UserForm
 
 
 class IndexView(TemplateView):
     template_name = 'chatroom/chatroom.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        queryset = ChatMessage.objects.order_by("-created")[:10]
+        count_messages = len(queryset)
+
+        if count_messages > 0:
+            current_message_id = queryset[count_messages - 1].id
+            previous_message_id = ChatMessage.objects.filter(
+                pk__lt=current_message_id
+            ).order_by("-pk").first().id
+        else:
+            previous_message_id = -1
+
+        context['chat_messages'] = reversed(queryset)
+        context['previous_message_id'] = previous_message_id
+        return context
 
 
 def logout(request):
