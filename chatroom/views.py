@@ -11,7 +11,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 
-from chatroom.models import ChatMessage
+from .models import ChatMessage
 from .forms import RegistrationForm, UserForm
 
 

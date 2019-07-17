@@ -9,7 +9,7 @@ from channels_presence.signals import presence_changed
 from django.dispatch import receiver
 from django.utils.html import escape
 
-from chatroom.models import ChatMessage
+from .models import ChatMessage
 
 
 @channel_session_user_from_http
